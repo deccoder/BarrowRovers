@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "220884118865",
+    "firebase_url": "https://barrowrovers.firebaseio.com",
+    "project_id": "barrowrovers",
+    "storage_bucket": "barrowrovers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220884118865:android:61b818542b9a08ea",
+        "android_client_info": {
+          "package_name": "declanbrophy.barrowrovers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220884118865-n6af9ua36d3riq1smn2netbh4ihnqp8a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "declanbrophy.barrowrovers",
+            "certificate_hash": "00b17886400d3133bd390c3d671415720b05b3e6"
+          }
+        },
+        {
+          "client_id": "220884118865-n3eqbofu3ot927u3nebpftkje0jce0it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWjWlbxljABK74YmKCi0rwWVHWT1m-0KE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220884118865-n3eqbofu3ot927u3nebpftkje0jce0it.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
