@@ -26,6 +26,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, CreateTeam.class);
+                startActivity(intent);
             }
         });
         //Brings user to view the team/teams that have been created
