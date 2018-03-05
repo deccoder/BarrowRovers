@@ -20,8 +20,8 @@ public class CreateTeam extends AppCompatActivity {
     Button save;
     EditText teamName, systemAdmin, address, email;
     DatabaseReference databaseReference;
-    private static String userId;
-    List<teams> teams;
+    private static String teamId;
+    ArrayList<declanbrophy.barrowrovers.teams> teams;
     ListView teamlist;
 
     @Override
@@ -32,23 +32,23 @@ public class CreateTeam extends AppCompatActivity {
         teams = new ArrayList<teams>();
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
 
-        Button save = (Button) findViewById(R.id.save);
-        final EditText teamName = (EditText) findViewById(R.id.teamName);
-        final EditText systemAdmin = (EditText) findViewById(R.id.systemAdmin);
-        final EditText address = (EditText) findViewById(R.id.address);
-        final EditText email = (EditText) findViewById(R.id.email);
-        ListView teamlist = (ListView) findViewById(R.id.teamlist);
+        save = (Button) findViewById(R.id.save);
+        teamName = (EditText) findViewById(R.id.teamName);
+        systemAdmin = (EditText) findViewById(R.id.systemAdmin);
+        address = (EditText) findViewById(R.id.address);
+        email = (EditText) findViewById(R.id.email);
+
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String name = teamName.getText().toString();
 
-                if (TextUtils.isEmpty(userId)) {
+                if (TextUtils.isEmpty(teamId)) {
                     //save
                     String id = databaseReference.push().getKey();
-                    teams teams = new teams(teams);
-                    databaseReference.child(id).setValue(teams);
+                    teams teams = new teams(teamId,name);
+                    databaseReference.child(teamId).setValue(teams);
 
                     Toast.makeText(CreateTeam.this, "Team Created Successfully", Toast.LENGTH_SHORT).show();
                 }

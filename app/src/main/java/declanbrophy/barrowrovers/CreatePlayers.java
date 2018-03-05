@@ -2,10 +2,12 @@ package declanbrophy.barrowrovers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,7 +41,15 @@ public class CreatePlayers extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                String pName = name.getText().toString();
+
+                if (TextUtils.isEmpty(playerId)){
+                    String id = databaseReference.push().getKey();
+                    Players players = new Players(id,pName);
+                    databaseReference.child(id).setValue(players);
+
+                    Toast.makeText(CreatePlayers.this, "Player added Successfully", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
