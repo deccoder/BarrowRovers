@@ -20,7 +20,6 @@ public class CreatePlayers extends AppCompatActivity {
     Button add;
     EditText name,email,squadNumber,pinNumber;
     DatabaseReference databaseReference;
-    ListView listViewPlayers;
     List<Players> players;
     private static String playerId;
 

@@ -22,7 +22,7 @@ public class CreateTeam extends AppCompatActivity {
     DatabaseReference databaseReference;
     private static String teamId;
     ArrayList<declanbrophy.barrowrovers.teams> teams;
-    ListView teamlist;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
