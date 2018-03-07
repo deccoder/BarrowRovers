@@ -21,7 +21,7 @@ public class CreateTeam extends AppCompatActivity {
     EditText teamName, systemAdmin, address, email;
     DatabaseReference databaseReference;
     private static String teamId;
-    ArrayList<declanbrophy.barrowrovers.teams> teams;
+    ArrayList<teams> teams;
 
 
     @Override
@@ -47,10 +47,25 @@ public class CreateTeam extends AppCompatActivity {
                 if (TextUtils.isEmpty(teamId)) {
                     //save
                     String id = databaseReference.push().getKey();
-                    teams teams = new teams(teamId,name);
+                    teams teams = new teams(teamId, name);
                     databaseReference.child(teamId).setValue(teams);
+                }else if (TextUtils.isEmpty(teamId)) {
+                    String id = databaseReference.push().getKey();
+                    String sAdmin = systemAdmin.getText().toString();
+                    teams teams = new teams(id,sAdmin);
+                    databaseReference.child(id).setValue(teams);
+                }else if (TextUtils.isEmpty(teamId)) {
+                    String id = databaseReference.push().getKey();
+                    String teamAddress = address.getText().toString();
+                    teams teams = new teams(id, teamAddress);
+                    databaseReference.child(id).setValue(teams);
+                }else {
+                    String id = databaseReference.push().getKey();
+                    String teamEmail = email.getText().toString();
+                    teams teams = new teams(id,teamEmail);
+                    databaseReference.child(id).setValue(teams);
 
-                    Toast.makeText(CreateTeam.this, "Team Created Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateTeam.this, "Team created successfully", Toast.LENGTH_SHORT).show();
                 }
             }
         });
