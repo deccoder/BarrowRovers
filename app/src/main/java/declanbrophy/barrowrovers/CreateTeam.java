@@ -1,5 +1,6 @@
 package declanbrophy.barrowrovers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,7 +24,7 @@ public class CreateTeam extends AppCompatActivity {
     Button save;
     EditText teamName, systemAdmin, address, email;
     DatabaseReference databaseReference;
-    private static String teamId;
+    public static String teamId;
     ArrayList<Team> teamOne;
 
 
@@ -53,28 +54,30 @@ public class CreateTeam extends AppCompatActivity {
                     Team teams = new Team(teamId, name);
                     databaseReference.child(teamId).setValue(teams);
                 }else if (TextUtils.isEmpty(teamId)) {
-                    String id = databaseReference.push().getKey();
                     String sAdmin = systemAdmin.getText().toString();
-                    Team teams = new Team(id,sAdmin);
-                    databaseReference.child(id).setValue(teams);
+                    String teamId = databaseReference.push().getKey();
+                    Team teams = new Team(teamId, sAdmin);
+                    databaseReference.child(teamId).setValue(teams);
                 }else if (TextUtils.isEmpty(teamId)) {
-                    String id = databaseReference.push().getKey();
+                    String teamId = databaseReference.push().getKey();
                     String teamAddress = address.getText().toString();
-                    Team teams = new Team(id, teamAddress);
-                    databaseReference.child(id).setValue(teams);
-                }else {
-                    String id = databaseReference.push().getKey();
+                    Team teams = new Team(teamId, teamAddress);
+                    databaseReference.child(teamId).setValue(teams);
+                }else if (TextUtils.isEmpty(teamId)){
                     String teamEmail = email.getText().toString();
-                    Team teams = new Team(id,teamEmail);
-                    databaseReference.child(id).setValue(teams);
+                    String teamId = databaseReference.push().getKey();
+                    Team teams = new Team(teamId,teamEmail);
+                    databaseReference.child(teamId).setValue(teams);
 
-                    Toast.makeText(CreateTeam.this, "Team created successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateTeam.this,"Team created successfully", Toast.LENGTH_SHORT).show();
                 }
 
                 teamName.setText(null);
                 systemAdmin.setText(null);
                 address.setText(null);
                 email.setText(null);
+
+
             }
 
 
@@ -95,6 +98,11 @@ public class CreateTeam extends AppCompatActivity {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Team teams = postSnapshot.getValue(Team.class);
                     teamOne.add(teams);
+
+                    Intent intent = new Intent(CreateTeam.this, ViewTeam.class);
+                    String userInput = teamName.getText().toString();
+                    intent.putExtra(userInput);
+                    startActivity(intent);
                 }
             }
 
