@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -51,15 +54,14 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(MainActivity.this, MainMenu.class);
-                startActivity(intent);
+
             }
         });
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailAddress.getText().toString().trim();
-                String pWord = password.getText().toString().trim();
+                final String pWord = password.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)){
                     Toast.makeText(getApplicationContext(),"Enter email address", Toast.LENGTH_SHORT).show();
@@ -69,9 +71,38 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter password",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(MainActivity.this, MainMenu.class);
-                startActivity(intent);
+                mAuth.signInWithEmailAndPassword(email,pWord).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()){
+                            if (password.length() < 6) {
+                                password.setError(getString(R.string.minimum_password));
+                            }else if (!task.isSuccessful()){
+                                Toast.makeText(MainActivity.this,getString(R.string.auth_failed),Toast.LENGTH_SHORT).show();
+                            }else {
+                                Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    }
+                });
+                mAuth.signInWithEmailAndPassword(email,pWord).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(MainActivity.this,"Registered Successfully"+task.isSuccessful(),Toast.LENGTH_SHORT).show();
+
+                        if (!task.isSuccessful()){
+                            Toast.makeText(MainActivity.this,"Authentication Failed"+task.getException(),Toast.LENGTH_SHORT).show();
+                        }else {
+                            startActivity(new Intent(MainActivity.this, MainMenu.class));
+                            finish();
+                        }
+                    }
+                });
             }
         });
-    }
+
+        }
+
 }
