@@ -54,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mAuth.signInWithEmailAndPassword(email,pWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()){
+                            if (password.length() < 6) {
+                                password.setError("");
+                            }else if (!task.isSuccessful()){
+                                Toast.makeText(MainActivity.this,"", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    }
+                });
 
             }
         });
