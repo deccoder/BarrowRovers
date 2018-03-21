@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter password",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mAuth.createUserWithEmailAndPassword(email, pWord);
                 mAuth.signInWithEmailAndPassword(email,pWord).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 mAuth.signInWithEmailAndPassword(email,pWord).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Toast.makeText(MainActivity.this,"Registered Successfully"+task.isSuccessful(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this,"Registered Successfully"+task.isSuccessful(),Toast.LENGTH_LONG).show();
 
                         if (!task.isSuccessful()){
                             Toast.makeText(MainActivity.this,"Authentication Failed"+task.getException(),Toast.LENGTH_SHORT).show();
