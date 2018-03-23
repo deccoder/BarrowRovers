@@ -25,7 +25,7 @@ public class CreateTeam extends AppCompatActivity {
     EditText teamName, systemAdmin, address, email;
     DatabaseReference databaseReference;
     public static String teamId;
-    ArrayList<Team> teamOne;
+    Team teamOne;
 
 
     @Override
@@ -33,7 +33,7 @@ public class CreateTeam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_team);
 
-        teamOne = new ArrayList<Team>();
+        teamOne = new Team();
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
 
         save = (Button) findViewById(R.id.save);
@@ -47,30 +47,41 @@ public class CreateTeam extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String name = teamName.getText().toString();
+                String sAdmin = systemAdmin.getText().toString();
+                String location = address.getText().toString();
+                String contact = email.getText().toString();
+                teamOne.setTeamName(name);
+                teamOne.setSystemAdmin(sAdmin);
+                teamOne.setAddress(location);
+                teamOne.setEmail(contact);
 
-                if (TextUtils.isEmpty(teamId)) {
-                    //save
-                    String id = databaseReference.push().getKey();
-                    Team teams = new Team(teamId, name);
-                    databaseReference.child(teamId).setValue(teams);
-                }else if (TextUtils.isEmpty(teamId)) {
-                    String sAdmin = systemAdmin.getText().toString();
-                    String teamId = databaseReference.push().getKey();
-                    Team teams = new Team(teamId, sAdmin);
-                    databaseReference.child(teamId).setValue(teams);
-                }else if (TextUtils.isEmpty(teamId)) {
-                    String teamId = databaseReference.push().getKey();
-                    String teamAddress = address.getText().toString();
-                    Team teams = new Team(teamId, teamAddress);
-                    databaseReference.child(teamId).setValue(teams);
-                }else if (TextUtils.isEmpty(teamId)){
-                    String teamEmail = email.getText().toString();
-                    String teamId = databaseReference.push().getKey();
-                    Team teams = new Team(teamId,teamEmail);
-                    databaseReference.child(teamId).setValue(teams);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("team");
+        myRef.setValue("Team Details");
 
-                    Toast.makeText(CreateTeam.this,"Team created successfully", Toast.LENGTH_SHORT).show();
-                }
+//                if (TextUtils.isEmpty(teamId)) {
+//                    //save
+//                    String id = databaseReference.push().getKey();
+//                    Team teams = new Team(teamId, name);
+//                    databaseReference.child(teamId).setValue(teams);
+//                }else if (TextUtils.isEmpty(teamId)) {
+//                    String sAdmin = systemAdmin.getText().toString();
+//                    String teamId = databaseReference.push().getKey();
+//                    Team teams = new Team(teamId, sAdmin);
+//                    databaseReference.child(teamId).setValue(teams);
+//                }else if (TextUtils.isEmpty(teamId)) {
+//                    String teamId = databaseReference.push().getKey();
+//                    String teamAddress = address.getText().toString();
+//                    Team teams = new Team(teamId, teamAddress);
+//                    databaseReference.child(teamId).setValue(teams);
+//                }else if (TextUtils.isEmpty(teamId)){
+//                    String teamEmail = email.getText().toString();
+//                    String teamId = databaseReference.push().getKey();
+//                    Team teams = new Team(teamId,teamEmail);
+//                    databaseReference.child(teamId).setValue(teams);
+//
+//                    Toast.makeText(CreateTeam.this,"Team created successfully", Toast.LENGTH_SHORT).show();
+//                }
 
                 teamName.setText(null);
                 systemAdmin.setText(null);
@@ -93,15 +104,14 @@ public class CreateTeam extends AppCompatActivity {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                teamOne.clear();
+
 
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                     Team teams = postSnapshot.getValue(Team.class);
-                    teamOne.add(teams);
+
 
                     Intent intent = new Intent(CreateTeam.this, ViewTeam.class);
-                    String userInput = teamName.getText().toString();
-                    intent.putExtra(userInput);
+                    intent.putExtra("team",teamOne);
                     startActivity(intent);
                 }
             }
