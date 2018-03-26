@@ -34,6 +34,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, ViewTeam.class);
+                startActivity(intent);
             }
         });
         //Brings user to adding players to the team
@@ -41,6 +42,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, CreatePlayers.class);
+                startActivity(intent);
             }
         });
         //Brings user to player details that have been added to the team

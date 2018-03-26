@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateTeam extends AppCompatActivity {
-
+    //Initializing variables
     Button save;
     EditText teamName, systemAdmin, address, email;
     DatabaseReference databaseReference;
@@ -32,29 +32,34 @@ public class CreateTeam extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_team);
-
+        //Declaring and creating objects
         teamOne = new Team();
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
-
+        //Creating objects of user interface
         save = (Button) findViewById(R.id.save);
         teamName = (EditText) findViewById(R.id.teamName);
         systemAdmin = (EditText) findViewById(R.id.systemAdmin);
         address = (EditText) findViewById(R.id.address);
         email = (EditText) findViewById(R.id.email);
 
-
+        //Activation of button when pressed
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Declaring a variable of type String and passing text to that String variable
                 String name = teamName.getText().toString();
                 String sAdmin = systemAdmin.getText().toString();
                 String location = address.getText().toString();
                 String contact = email.getText().toString();
+                //Set method to store data entered in String variable in team object
                 teamOne.setTeamName(name);
                 teamOne.setSystemAdmin(sAdmin);
                 teamOne.setAddress(location);
                 teamOne.setEmail(contact);
-
+                //Intent to move data from create team to view team class
+                Intent intent = new Intent(CreateTeam.this, ViewTeam.class);
+                intent.putExtra("team", teamOne);
+        //Calling database to save data
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("team");
         myRef.setValue("Team Details");
@@ -83,10 +88,7 @@ public class CreateTeam extends AppCompatActivity {
 //                    Toast.makeText(CreateTeam.this,"Team created successfully", Toast.LENGTH_SHORT).show();
 //                }
 
-                teamName.setText(null);
-                systemAdmin.setText(null);
-                address.setText(null);
-                email.setText(null);
+
 
 
             }
@@ -97,30 +99,6 @@ public class CreateTeam extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    Team teams = postSnapshot.getValue(Team.class);
-
-
-                    Intent intent = new Intent(CreateTeam.this, ViewTeam.class);
-                    intent.putExtra("team",teamOne);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }
 
