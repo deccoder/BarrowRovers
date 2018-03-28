@@ -21,7 +21,7 @@ import java.util.List;
 
 public class CreateTeam extends AppCompatActivity {
     //Initializing variables
-    Button save;
+    Button save, update;
     EditText teamName, systemAdmin, address, email;
     DatabaseReference databaseReference;
     public static String teamId;
@@ -37,6 +37,7 @@ public class CreateTeam extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference("teams");
         //Creating objects of user interface
         save = (Button) findViewById(R.id.save);
+        update = (Button) findViewById(R.id.update);
         teamName = (EditText) findViewById(R.id.teamName);
         systemAdmin = (EditText) findViewById(R.id.systemAdmin);
         address = (EditText) findViewById(R.id.address);
@@ -60,9 +61,11 @@ public class CreateTeam extends AppCompatActivity {
                 Intent intent = new Intent(CreateTeam.this, ViewTeam.class);
                 intent.putExtra("team", teamOne);
         //Calling database to save data
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("team");
-        myRef.setValue("Team Details");
+        String id = databaseReference.push().getKey();
+        Team teamOne = new Team(name, sAdmin, location, contact);
+        databaseReference.child(id).setValue(teamOne);
+
+        Toast.makeText(CreateTeam.this, "Team Created Successfully", Toast.LENGTH_LONG).show();
 
 //                if (TextUtils.isEmpty(teamId)) {
 //                    //save

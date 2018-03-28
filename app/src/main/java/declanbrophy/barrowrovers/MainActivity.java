@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     Button register,signIn;
     EditText emailAddress, password;
     FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,20 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (emailAddress != null) {
+                    Toast.makeText(MainActivity.this, "Email address Entered", Toast.LENGTH_LONG).show();
+
+                }else {
+                    if (password != null) {
+                        Toast.makeText(MainActivity.this, "Password Entered", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        };
 
 
 
@@ -54,14 +69,15 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                mAuth.signInWithEmailAndPassword(email, pWord);
                 mAuth.signInWithEmailAndPassword(email,pWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (!task.isSuccessful()){
                             if (password.length() < 6) {
                                 password.setError("");
-                            }else if (!task.isSuccessful()){
-                                Toast.makeText(MainActivity.this,"", Toast.LENGTH_SHORT).show();
+                            }else if (task.isSuccessful()){
+                                Toast.makeText(MainActivity.this,"Test Response", Toast.LENGTH_SHORT).show();
                             }else {
                                 Intent intent = new Intent(MainActivity.this, MainMenu.class);
                                 startActivity(intent);
@@ -94,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                         if (!task.isSuccessful()){
                             if (password.length() < 6) {
                                 password.setError(getString(R.string.minimum_password));
-                            }else if (!task.isSuccessful()){
+                            }else if (task.isSuccessful()){
                                 Toast.makeText(MainActivity.this,getString(R.string.auth_failed),Toast.LENGTH_SHORT).show();
                             }else {
                                 Intent intent = new Intent(MainActivity.this, MainMenu.class);
@@ -121,5 +137,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+
+
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null){
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
 
 }

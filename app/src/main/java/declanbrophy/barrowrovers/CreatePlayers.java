@@ -44,35 +44,38 @@ public class CreatePlayers extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String pName = name.getText().toString();
+                String eAddress = email.getText().toString();
+                String sNumber = squadNumber.getText().toString();
+                String pNumber = pinNumber.getText().toString();
 
-                if (TextUtils.isEmpty(playerId)){
-                    String id = databaseReference.push().getKey();
-                    Players players = new Players(id,pName);
-                    databaseReference.child(id).setValue(players);
-                }else if (TextUtils.isEmpty(playerId)) {
-                    String playerId = databaseReference.push().getKey();
-                    String pEmail = email.getText().toString();
-                    Players players = new Players(playerId,pEmail);
-                    databaseReference.child(playerId).setValue(players);
-                }else if (TextUtils.isEmpty(playerId)) {
-                    String id = databaseReference.push().getKey();
-                    String pSquadNumber = squadNumber.getText().toString();
-                    Players players = new Players(id,pSquadNumber);
-                    databaseReference.child(id).setValue(players);
-                }else {
-                    String id = databaseReference.push().getKey();
-                    String pin = pinNumber.getText().toString();
-                    Players players = new Players(id,pin);
-                    databaseReference.child(id).setValue(players);
+                String id = databaseReference.push().getKey();
+                Players players = new Players(pName, eAddress, sNumber, pNumber);
+                databaseReference.child(id).setValue(players);
 
-                    Toast.makeText(CreatePlayers.this, "Player details added successfully ", Toast.LENGTH_SHORT).show();
-                }
+//                if (TextUtils.isEmpty(playerId)){
+//                    String id = databaseReference.push().getKey();
+//                    Players players = new Players(id,pName);
+//                    databaseReference.child(id).setValue(players);
+//                }else if (TextUtils.isEmpty(playerId)) {
+//                    String playerId = databaseReference.push().getKey();
+//                    String pEmail = email.getText().toString();
+//                    Players players = new Players(playerId,pEmail);
+//                    databaseReference.child(playerId).setValue(players);
+//                }else if (TextUtils.isEmpty(playerId)) {
+//                    String id = databaseReference.push().getKey();
+//                    String pSquadNumber = squadNumber.getText().toString();
+//                    Players players = new Players(id,pSquadNumber);
+//                    databaseReference.child(id).setValue(players);
+//                }else {
+//                    String id = databaseReference.push().getKey();
+//                    String pin = pinNumber.getText().toString();
+//                    Players players = new Players(id,pin);
+//                    databaseReference.child(id).setValue(players);
 
-                name.setText(null);
-                email.setText(null);
-                squadNumber.setText(null);
-                pinNumber.setText(null);
-            }
+//                    Toast.makeText(CreatePlayers.this, "Player details added successfully ", Toast.LENGTH_SHORT).show();
+//                }
+
+                           }
         });
 
 
