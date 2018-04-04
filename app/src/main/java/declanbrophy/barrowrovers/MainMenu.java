@@ -50,6 +50,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, ViewPlayers.class);
+                startActivity(intent);
             }
         });
         //Brings user to create a schedule of matches and training
@@ -57,6 +58,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, CreateEvent.class);
+                startActivity(intent);
             }
         });
         //Brings user to calendar of events organised for the team
@@ -64,6 +66,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenu.this, ViewEvent.class);
+                startActivity(intent);
             }
         });
     }
