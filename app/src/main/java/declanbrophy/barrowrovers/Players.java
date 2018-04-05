@@ -1,6 +1,8 @@
 package declanbrophy.barrowrovers;
 
 
+import android.widget.EditText;
+
 import java.io.Serializable;
 
 public class Players implements Serializable {
@@ -13,7 +15,7 @@ public class Players implements Serializable {
 
 
 
-    public Players(String id, String pName) {
+    public Players() {
     }
 
     public Players(String name, String email, String squadNumber, String pinNumber, String id) {

@@ -1,5 +1,6 @@
 package declanbrophy.barrowrovers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,7 +24,7 @@ public class CreatePlayers extends AppCompatActivity {
     Button add;
     EditText name,email,squadNumber,pinNumber;
     DatabaseReference databaseReference;
-    List<Players> playerOne;
+    Players playerOne;
     private static String playerId;
 
     @Override
@@ -31,7 +32,7 @@ public class CreatePlayers extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_players);
 
-        playerOne = new ArrayList<Players>();
+        playerOne = new Players();
         databaseReference = FirebaseDatabase.getInstance().getReference("Players");
 
         add = (Button) findViewById(R.id.add);
@@ -43,14 +44,26 @@ public class CreatePlayers extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String pName = name.getText().toString();
-                String eAddress = email.getText().toString();
-                String sNumber = squadNumber.getText().toString();
-                String pNumber = pinNumber.getText().toString();
+                String Name = name.getText().toString();
+                String Address = email.getText().toString();
+                String NumberOne = squadNumber.getText().toString();
+                String NumberTwo = pinNumber.getText().toString();
+
+                playerOne.setpName(Name);
+                playerOne.setEAddress(Address);
+                playerOne.setSNumber(NumberOne);
+                playerOne.setPNumber(NumberTwo);
+
+                Intent intent = new Intent(CreatePlayers.this, ViewPlayers.class);
+                intent.putExtra("players", playerOne);
+                startActivity(intent);
+                finish();
 
                 String id = databaseReference.push().getKey();
-                Players players = new Players(pName, eAddress, sNumber, pNumber);
+                Players players = new Players(Name, Address, NumberOne, NumberTwo);
                 databaseReference.child(id).setValue(players);
+
+                Toast.makeText(CreatePlayers.this, "Player added successfully", Toast.LENGTH_LONG).show();
 
 //                if (TextUtils.isEmpty(playerId)){
 //                    String id = databaseReference.push().getKey();
@@ -81,27 +94,6 @@ public class CreatePlayers extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                playerOne.clear();
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()){
-                    Players players = postSnapshot.getValue(Players.class);
-                    playerOne.add(players);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }

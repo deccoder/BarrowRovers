@@ -15,7 +15,7 @@ public class ViewTeam extends AppCompatActivity {
 
         team = (Team)getIntent().getSerializableExtra("team");
 
-        Toast.makeText(getApplicationContext(),team+"\n+team",Toast.LENGTH_LONG).show();
+        Toast.makeText(ViewTeam.this, team+"\n+team", Toast.LENGTH_LONG).show();
 
 
     }

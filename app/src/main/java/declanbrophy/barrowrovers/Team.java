@@ -1,12 +1,17 @@
 package declanbrophy.barrowrovers;
 
-public class Team {
+import java.io.Serializable;
+
+public class Team implements Serializable {
 
     private String systemAdmin;
     private String teamName;
     private String address;
     private String email;
     private String id;
+
+    public Team(String name, String sAdmin, String location, String contact) {
+    }
 
     public String getId() {
         return id;
@@ -21,7 +26,7 @@ public class Team {
     public Team(String teamId, String name) {
     }
 
-    public Team(String systemAdmin, String teamName, String address, String email, String id) {
+    public Team() {
         this.systemAdmin = systemAdmin;
         this.teamName = teamName;
         this.address = address;

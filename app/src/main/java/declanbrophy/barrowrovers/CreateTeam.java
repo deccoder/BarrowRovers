@@ -60,6 +60,8 @@ public class CreateTeam extends AppCompatActivity {
                 //Intent to move data from create team to view team class
                 Intent intent = new Intent(CreateTeam.this, ViewTeam.class);
                 intent.putExtra("team", teamOne);
+                startActivity(intent);
+                finish();
         //Calling database to save data
         String id = databaseReference.push().getKey();
         Team teamOne = new Team(name, sAdmin, location, contact);

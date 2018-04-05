@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
 
                         if (!task.isSuccessful()){
                             Toast.makeText(getApplicationContext(), "Sign In with Email and Password Please", Toast.LENGTH_LONG).show();
+                        }else {
+                            Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 });
