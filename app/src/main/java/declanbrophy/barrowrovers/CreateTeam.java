@@ -23,8 +23,7 @@ public class CreateTeam extends AppCompatActivity {
     //Initializing variables
     Button save, update;
     EditText teamName, systemAdmin, address, email;
-    DatabaseReference databaseReference;
-    public static String teamId;
+    DatabaseReference teamDetails;
     Team teamOne;
 
 
@@ -34,8 +33,8 @@ public class CreateTeam extends AppCompatActivity {
         setContentView(R.layout.activity_create_team);
         //Declaring and creating objects
         teamOne = new Team();
-        databaseReference = FirebaseDatabase.getInstance().getReference("teams");
-        //Creating objects of user interface
+        teamDetails = FirebaseDatabase.getInstance().getReference("Teams");
+        //Getting value of objects by finding them from xml file
         save = (Button) findViewById(R.id.save);
         update = (Button) findViewById(R.id.update);
         teamName = (EditText) findViewById(R.id.teamName);
@@ -47,7 +46,9 @@ public class CreateTeam extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Declaring a variable of type String and passing text to that String variable
+                //Add method to send data to the database
+                addTeam();
+                //Gets the text from the field where it was entered
                 String name = teamName.getText().toString();
                 String sAdmin = systemAdmin.getText().toString();
                 String location = address.getText().toString();
@@ -62,38 +63,6 @@ public class CreateTeam extends AppCompatActivity {
                 intent.putExtra("team", teamOne);
                 startActivity(intent);
                 finish();
-        //Calling database to save data
-        String id = databaseReference.push().getKey();
-        Team teamOne = new Team(name, sAdmin, location, contact);
-        databaseReference.child(id).setValue(teamOne);
-
-        Toast.makeText(CreateTeam.this, "Team Created Successfully", Toast.LENGTH_LONG).show();
-
-//                if (TextUtils.isEmpty(teamId)) {
-//                    //save
-//                    String id = databaseReference.push().getKey();
-//                    Team teams = new Team(teamId, name);
-//                    databaseReference.child(teamId).setValue(teams);
-//                }else if (TextUtils.isEmpty(teamId)) {
-//                    String sAdmin = systemAdmin.getText().toString();
-//                    String teamId = databaseReference.push().getKey();
-//                    Team teams = new Team(teamId, sAdmin);
-//                    databaseReference.child(teamId).setValue(teams);
-//                }else if (TextUtils.isEmpty(teamId)) {
-//                    String teamId = databaseReference.push().getKey();
-//                    String teamAddress = address.getText().toString();
-//                    Team teams = new Team(teamId, teamAddress);
-//                    databaseReference.child(teamId).setValue(teams);
-//                }else if (TextUtils.isEmpty(teamId)){
-//                    String teamEmail = email.getText().toString();
-//                    String teamId = databaseReference.push().getKey();
-//                    Team teams = new Team(teamId,teamEmail);
-//                    databaseReference.child(teamId).setValue(teams);
-//
-//                    Toast.makeText(CreateTeam.this,"Team created successfully", Toast.LENGTH_SHORT).show();
-//                }
-
-
 
 
             }
@@ -102,6 +71,20 @@ public class CreateTeam extends AppCompatActivity {
         });
 
 
+    }
+    private void addTeam(){
+        String name = teamName.getText().toString();
+        String sAdmin = systemAdmin.getText().toString();
+        String location = address.getText().toString();
+        String contact = email.getText().toString();
+
+        String id = teamDetails.push().getKey();
+
+        Team teamOne = new Team(id, name, sAdmin, location, contact);
+
+        teamDetails.child(id).setValue(teamOne);
+
+        Toast.makeText(CreateTeam.this, "Team Details Saved", Toast.LENGTH_LONG).show();
     }
 
 
