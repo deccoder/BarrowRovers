@@ -2,6 +2,8 @@ package declanbrophy.barrowrovers;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,7 +31,7 @@ public class ViewTeam extends AppCompatActivity {
             @Override
             //This method will be executed anytime something is changed in the database
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Clears the teamlist each time it is called from the database
+                //Clears the teamlist each time it is called from the database from the ListView
                 teamList.clear();
 
                 for (DataSnapshot teamSnapshot : dataSnapshot.getChildren()){
@@ -62,6 +64,14 @@ public class ViewTeam extends AppCompatActivity {
         team = (Team)getIntent().getSerializableExtra("team");
 
         Toast.makeText(ViewTeam.this, team+"\n+team", Toast.LENGTH_LONG).show();
+
+
+        teamBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                
+            }
+        });
 
 
     }
