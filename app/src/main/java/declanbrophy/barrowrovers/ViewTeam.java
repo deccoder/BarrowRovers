@@ -1,10 +1,12 @@
 package declanbrophy.barrowrovers;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTeam extends AppCompatActivity {
-
+    //TextView teamName, systemAdmin, address, email;
     Team team;
     ListView teamBox;
     DatabaseReference teamDetails;
     //Creates a list of teams
-    List<Team> teamList;
+    List teamList;
 
     @Override
     protected void onStart() {
@@ -65,11 +67,24 @@ public class ViewTeam extends AppCompatActivity {
 
         Toast.makeText(ViewTeam.this, team+"\n+team", Toast.LENGTH_LONG).show();
 
+      //  teamName = (TextView) listViewItem.findViewById(R.id.teamName);
+        //systemAdmin = (TextView) listViewItem.findViewById(R.id.systemAdmin);
+        //address = (TextView) listViewItem.findViewById(R.id.address);
+        //email = (TextView) listViewItem.findViewById(R.id.email);
+
+
 
         teamBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                
+
+              //  Team team = teamBox.get(view);
+
+                Intent intent = new Intent(ViewTeam.this, TeamList.class);
+
+                //intent.putExtra();
+
+                startActivity(intent);
             }
         });
 
