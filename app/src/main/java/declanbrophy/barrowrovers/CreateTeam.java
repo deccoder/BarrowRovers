@@ -1,10 +1,13 @@
 package declanbrophy.barrowrovers;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -23,8 +26,11 @@ public class CreateTeam extends AppCompatActivity {
     //Initializing variables
     Button save, update;
     EditText teamName, systemAdmin, address, email;
+    //Database reference object
     DatabaseReference teamDetails;
     Team teamOne;
+    ListView teamlist;
+    List<Team> teamArray;
 
 
     @Override
@@ -33,14 +39,18 @@ public class CreateTeam extends AppCompatActivity {
         setContentView(R.layout.activity_create_team);
         //Declaring and creating objects
         teamOne = new Team();
+        //Makes an instance of Firebase database called team details
         teamDetails = FirebaseDatabase.getInstance().getReference("Teams");
         //Getting value of objects by finding them from xml file
         save = (Button) findViewById(R.id.save);
-        update = (Button) findViewById(R.id.update);
+
         teamName = (EditText) findViewById(R.id.teamName);
         systemAdmin = (EditText) findViewById(R.id.systemAdmin);
         address = (EditText) findViewById(R.id.address);
         email = (EditText) findViewById(R.id.email);
+        teamlist = (ListView) findViewById(R.id.teamList);
+
+        teamArray = new ArrayList<>();
 
         //Activation of button when pressed
         save.setOnClickListener(new View.OnClickListener() {
@@ -70,23 +80,96 @@ public class CreateTeam extends AppCompatActivity {
 
         });
 
+        teamlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Team team =  teamArray.get(position);
+
+                showUpdateBox(team.getTeamName(), team.getSystemAdmin(), team.getEmail(), team.getAddress());
+
+                return false;
+            }
+        });
+
+
+
 
     }
     private void addTeam(){
+        //Get the details that have been entered by the user
         String name = teamName.getText().toString();
         String sAdmin = systemAdmin.getText().toString();
         String location = address.getText().toString();
         String contact = email.getText().toString();
 
+        //Check to see if details have been filled in
+
+
+        //Creates a unique id to the database called id
         String id = teamDetails.push().getKey();
-
+        //Uses the id to pass the details that are in the brackets
         Team teamOne = new Team(id, name, sAdmin, location, contact);
-
+        //Using the database reference called team details the values that are in teamOne are set to the id
         teamDetails.child(id).setValue(teamOne);
-
+        //Message displayed to the user that the team details have been saved to the database
         Toast.makeText(CreateTeam.this, "Team Details Saved", Toast.LENGTH_LONG).show();
     }
 
+    private void showUpdateBox(String teamName, String systemAdmin, String email, String address){
 
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.update_team, null);
+
+        dialogBuilder.setView(dialogView);
+
+        final EditText tName = (EditText) dialogView.findViewById(R.id.teamName);
+        final EditText sAdmin = (EditText) dialogView.findViewById(R.id.systemAdmin);
+        final EditText contact = (EditText) dialogView.findViewById(R.id.email);
+        final EditText location = (EditText) dialogView.findViewById(R.id.address);
+        final Button update = (Button) dialogView.findViewById(R.id.update);
+
+
+
+    
+
+
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        teamDetails.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                teamArray.clear();
+
+                for (DataSnapshot teamSnapshot : dataSnapshot.getChildren()){
+
+                    Team team = teamSnapshot.getValue(Team.class);
+
+                    teamArray.add(team);
+
+
+                }
+
+                TeamList adapter = new TeamList(CreateTeam.this, teamArray);
+
+                teamlist.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
 }
 
