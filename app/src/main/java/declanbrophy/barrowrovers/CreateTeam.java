@@ -80,21 +80,97 @@ public class CreateTeam extends AppCompatActivity {
 
         });
 
+        teamlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Team team = teamArray.get(position);
+
+                Intent intent = new Intent(getApplicationContext(), Team.class);
+
+                intent.putExtra("Team", team.getTeamName());
+                intent.putExtra("Team", team.getAddress());
+                intent.putExtra("Team", team.getEmail());
+                intent.putExtra("Team", team.getId());
+
+                startActivity(intent);
+            }
+        });
+
         teamlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Team team =  teamArray.get(position);
+                Team team = teamArray.get(position);
 
-                showUpdateBox(team.getTeamName(), team.getSystemAdmin(), team.getEmail(), team.getAddress());
+                showUpdateBox(team.getId(), team.getTeamName(), team.getSystemAdmin(), team.getEmail(), team.getAddress());
 
-                return false;
+                return true;
+            }
+        });
+
+
+            }
+
+    private void showUpdateBox(final String teamId, String newTeamName, String newSystemAdmin, String newEmail, String newAddress){
+
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        final View dialogView = inflater.inflate(R.layout.update_team, null);
+
+        dialogBuilder.setView(dialogView);
+
+        final EditText tName = (EditText) dialogView.findViewById(R.id.teamName);
+        final EditText sAdmin = (EditText) dialogView.findViewById(R.id.systemAdmin);
+        final EditText contact = (EditText) dialogView.findViewById(R.id.email);
+        final EditText location = (EditText) dialogView.findViewById(R.id.address);
+        final Button update = (Button) dialogView.findViewById(R.id.update);
+
+        dialogBuilder.setTitle("Update Team "+teamName);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+        update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = tName.getText().toString();
+                String systemAd = sAdmin.getText().toString();
+                String email = contact.getText().toString();
+                String address = location.getText().toString();
+
+                if (TextUtils.isEmpty(email)){
+                    contact.setError("Email address required");
+                    return;
+                }
+
+               updateTeam(teamId, name, systemAd, email, address);
+
+                alertDialog.dismiss();
+
             }
         });
 
 
 
-
     }
+
+
+        private void updateTeam(String teamId, String newName, String newSystemAdmin, String newEmail, String newAddress){
+
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Teams").child(teamId);
+
+            Team team = new Team(teamId, newName, newAddress, newEmail, newSystemAdmin);
+
+            databaseReference.setValue(team);
+
+            Toast.makeText(this, "Team Updated Successfully", Toast.LENGTH_LONG).show();
+
+
+        }
+
+
+
     private void addTeam(){
         //Get the details that have been entered by the user
         String name = teamName.getText().toString();
@@ -115,29 +191,6 @@ public class CreateTeam extends AppCompatActivity {
         Toast.makeText(CreateTeam.this, "Team Details Saved", Toast.LENGTH_LONG).show();
     }
 
-    private void showUpdateBox(String teamName, String systemAdmin, String email, String address){
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
-        LayoutInflater inflater = getLayoutInflater();
-
-        final View dialogView = inflater.inflate(R.layout.update_team, null);
-
-        dialogBuilder.setView(dialogView);
-
-        final EditText tName = (EditText) dialogView.findViewById(R.id.teamName);
-        final EditText sAdmin = (EditText) dialogView.findViewById(R.id.systemAdmin);
-        final EditText contact = (EditText) dialogView.findViewById(R.id.email);
-        final EditText location = (EditText) dialogView.findViewById(R.id.address);
-        final Button update = (Button) dialogView.findViewById(R.id.update);
-
-
-
-    
-
-
-
-    }
 
 
     @Override
