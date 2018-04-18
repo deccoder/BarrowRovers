@@ -20,7 +20,7 @@ public class TeamList extends ArrayAdapter<Team> {
     private List<Team> teamList;
 
     public TeamList(Activity context, List<Team> teamList){
-        super(context, R.layout.activity_view_team);
+        super(context, R.layout.layout_team_list, teamList);
         this.context = context;
         this.teamList = teamList;
     }
@@ -30,7 +30,7 @@ public class TeamList extends ArrayAdapter<Team> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater = context.getLayoutInflater();
 
-        View listViewItem = layoutInflater.inflate(R.layout.activity_view_team, null, true);
+        View listViewItem = layoutInflater.inflate(R.layout.layout_team_list, null, true);
 
         TextView teamName = (TextView) listViewItem.findViewById(R.id.teamName);
         TextView systemAdmin = (TextView) listViewItem.findViewById(R.id.systemAdmin);

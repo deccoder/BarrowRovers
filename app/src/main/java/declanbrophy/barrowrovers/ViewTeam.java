@@ -20,48 +20,48 @@ import java.util.List;
 public class ViewTeam extends AppCompatActivity {
     //TextView teamName, systemAdmin, address, email;
     Team team;
-    ListView teamBox;
-    DatabaseReference teamDetails;
+    //ListView teamBox;
+  //  DatabaseReference teamDetails;
     //Creates a list of teams
-    List teamList;
+   // List teamList;
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+//   @Override
+//    protected void onStart() {
+//        super.onStart();
 
-        teamDetails.addValueEventListener(new ValueEventListener() {
-            @Override
+//        teamDetails.addValueEventListener(new ValueEventListener() {
+//            @Override
             //This method will be executed anytime something is changed in the database
-            public void onDataChange(DataSnapshot dataSnapshot) {
+//            public void onDataChange(DataSnapshot dataSnapshot) {
                 //Clears the teamlist each time it is called from the database from the ListView
-                teamList.clear();
+//                teamList.clear();
 
-                for (DataSnapshot teamSnapshot : dataSnapshot.getChildren()){
+//                for (DataSnapshot teamSnapshot : dataSnapshot.getChildren()){
                     //Using team object to get values
-                    Team team = teamSnapshot.getValue(Team.class);
+//                    Team team = teamSnapshot.getValue(Team.class);
                     //Adds values to the team list
-                    teamList.add(team);
-                }
+//                    teamList.add(team);
+//                }
 
-                TeamList adapter = new TeamList(ViewTeam.this, teamList);
-                teamBox.setAdapter(adapter);
+//                TeamList adapter = new TeamList(ViewTeam.this, teamList);
+//                teamBox.setAdapter(adapter);
 
-            }
+//            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
-    }
+//            }
+//        });
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_team);
 
-        teamBox = (ListView) findViewById(R.id.textBox);
-        teamList = new ArrayList<>();
+    //    teamBox = (ListView) findViewById(R.id.textBox);
+    //    teamList = new ArrayList<>();
 
         team = (Team)getIntent().getSerializableExtra("team");
 
@@ -74,20 +74,20 @@ public class ViewTeam extends AppCompatActivity {
 
 
 
-        teamBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    //    teamBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      //      @Override
+        //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
               //  Team team = teamBox.get(view);
 
-                Intent intent = new Intent(ViewTeam.this, TeamList.class);
+          //      Intent intent = new Intent(ViewTeam.this, TeamList.class);
 
                 //intent.putExtra();
 
-                startActivity(intent);
+            //    startActivity(intent);
             }
-        });
+        //});
 
 
     }
-}
+//}

@@ -23,9 +23,9 @@ public class CreatePlayers extends AppCompatActivity {
 
     Button add;
     EditText name,email,squadNumber,pinNumber;
-    DatabaseReference databaseReference;
+    DatabaseReference playerDetails;
     Players playerOne;
-    private static String playerId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class CreatePlayers extends AppCompatActivity {
         setContentView(R.layout.activity_create_players);
 
         playerOne = new Players();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Players");
+        playerDetails = FirebaseDatabase.getInstance().getReference("Players");
 
         add = (Button) findViewById(R.id.add);
         name = (EditText) findViewById(R.id.name);
@@ -44,11 +44,14 @@ public class CreatePlayers extends AppCompatActivity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Add method to send data to database
+                addPlayer();
+                //Gets the text from the field where it was entered
                 String Name = name.getText().toString();
                 String Address = email.getText().toString();
                 String NumberOne = squadNumber.getText().toString();
                 String NumberTwo = pinNumber.getText().toString();
-
+                //Set method used to store data entered in String variable in playerOne object
                 playerOne.setpName(Name);
                 playerOne.setEAddress(Address);
                 playerOne.setSNumber(NumberOne);
@@ -59,41 +62,26 @@ public class CreatePlayers extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
-                String id = databaseReference.push().getKey();
-                Players players = new Players(Name, Address, NumberOne, NumberTwo);
-                databaseReference.child(id).setValue(players);
-
-                Toast.makeText(CreatePlayers.this, "Player added successfully", Toast.LENGTH_LONG).show();
-
-//                if (TextUtils.isEmpty(playerId)){
-//                    String id = databaseReference.push().getKey();
-//                    Players players = new Players(id,pName);
-//                    databaseReference.child(id).setValue(players);
-//                }else if (TextUtils.isEmpty(playerId)) {
-//                    String playerId = databaseReference.push().getKey();
-//                    String pEmail = email.getText().toString();
-//                    Players players = new Players(playerId,pEmail);
-//                    databaseReference.child(playerId).setValue(players);
-//                }else if (TextUtils.isEmpty(playerId)) {
-//                    String id = databaseReference.push().getKey();
-//                    String pSquadNumber = squadNumber.getText().toString();
-//                    Players players = new Players(id,pSquadNumber);
-//                    databaseReference.child(id).setValue(players);
-//                }else {
-//                    String id = databaseReference.push().getKey();
-//                    String pin = pinNumber.getText().toString();
-//                    Players players = new Players(id,pin);
-//                    databaseReference.child(id).setValue(players);
-
-//                    Toast.makeText(CreatePlayers.this, "Player details added successfully ", Toast.LENGTH_SHORT).show();
-//                }
 
                            }
         });
 
 
     }
+private void addPlayer(){
+    String Name = name.getText().toString();
+    String Address = email.getText().toString();
+    String NumberOne = squadNumber.getText().toString();
+    String NumberTwo = pinNumber.getText().toString();
 
+    String id = playerDetails.push().getKey();
+
+    Players playerOne = new Players(id, Name, Address, NumberOne, NumberTwo);
+
+    playerDetails.child(id).setValue(playerOne);
+
+    Toast.makeText(CreatePlayers.this, "Player details saved", Toast.LENGTH_LONG).show();
+}
 
 
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BarrowRovers</string>
+    <string name="minimum_password" />
+    <string name="auth_failed" />
 </resources>

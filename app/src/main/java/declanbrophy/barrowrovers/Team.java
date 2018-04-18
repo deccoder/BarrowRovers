@@ -1,7 +1,7 @@
 package declanbrophy.barrowrovers;
 
 import java.io.Serializable;
-
+//Class to store all the attributes
 public class Team implements Serializable {
 
     private String systemAdmin;
@@ -9,9 +9,11 @@ public class Team implements Serializable {
     private String address;
     private String email;
     private String id;
+    //Empty constructor used to read values
+    public Team(){
 
-    public Team(String name, String sAdmin, String location, String contact) {
     }
+
 
     public String getId() {
         return id;
@@ -21,12 +23,8 @@ public class Team implements Serializable {
         this.id = id;
     }
 
-
-
-    public Team(String teamId, String name) {
-    }
-
-    public Team() {
+    //Constructor to initialize variables
+    public Team(String systemAdmin, String teamName, String address, String email, String id) {
         this.systemAdmin = systemAdmin;
         this.teamName = teamName;
         this.address = address;
@@ -35,6 +33,8 @@ public class Team implements Serializable {
     }
 
 
+
+    //Get methods used to read values
     public String getSystemAdmin() {
         return systemAdmin;
     }

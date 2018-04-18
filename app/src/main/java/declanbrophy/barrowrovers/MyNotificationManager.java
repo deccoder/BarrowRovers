@@ -23,8 +23,6 @@ public class MyNotificationManager {
         return mInstance;
     }
 
-    public void dispalyNotification(String eventType, String location){
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder();
-    }
+
 }
