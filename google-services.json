@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "54689982882",
+    "firebase_url": "https://barrowrovers-411a7.firebaseio.com",
+    "project_id": "barrowrovers-411a7",
+    "storage_bucket": "barrowrovers-411a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54689982882:android:61b818542b9a08ea",
+        "android_client_info": {
+          "package_name": "declanbrophy.barrowrovers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "54689982882-v08pcn7usv64ka4mebfebtokuhfgia0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkFaWxZECmsG0GjOfTdC96M7hwfKj2sKE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
