@@ -15,11 +15,11 @@ public class MainMenu extends AppCompatActivity {
 
         //Initialize and create contents of user interface
         Button createTeam = (Button) findViewById(R.id.createTeam);
-        Button viewTeam = (Button) findViewById(R.id.viewTeam);
+//        Button viewTeam = (Button) findViewById(R.id.viewTeam);
         Button createPlayers = (Button) findViewById(R.id.createPlayers);
-        Button viewPlayers = (Button) findViewById(R.id.viewPlayers);
-        Button createEvent = (Button) findViewById(R.id.createEvent);
-        Button viewEvent = (Button) findViewById(R.id.viewEvent);
+//        Button viewPlayers = (Button) findViewById(R.id.viewPlayers);
+//        Button createEvent = (Button) findViewById(R.id.createEvent);
+//        Button viewEvent = (Button) findViewById(R.id.viewEvent);
 
         //Brings user to create team details page
         createTeam.setOnClickListener(new View.OnClickListener() {
@@ -30,13 +30,13 @@ public class MainMenu extends AppCompatActivity {
             }
         });
         //Brings user to view the team/teams that have been created
-        viewTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, ViewTeam.class);
-                startActivity(intent);
-            }
-        });
+ //       viewTeam.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainMenu.this, ViewTeam.class);
+//                startActivity(intent);
+//            }
+//        });
         //Brings user to adding players to the team
         createPlayers.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,28 +46,28 @@ public class MainMenu extends AppCompatActivity {
             }
         });
         //Brings user to player details that have been added to the team
-        viewPlayers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, ViewPlayers.class);
-                startActivity(intent);
-            }
-        });
+//        viewPlayers.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainMenu.this, ViewPlayers.class);
+//                startActivity(intent);
+//            }
+//        });
         //Brings user to create a schedule of matches and training
-        createEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, CreateEvent.class);
-                startActivity(intent);
-            }
-        });
+//        createEvent.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainMenu.this, CreateEvent.class);
+//                startActivity(intent);
+//            }
+//        });
         //Brings user to calendar of events organised for the team
-        viewEvent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, ViewEvent.class);
-                startActivity(intent);
-            }
-        });
+//        viewEvent.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainMenu.this, ViewEvent.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 }
