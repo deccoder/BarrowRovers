@@ -1,18 +1,22 @@
 package declanbrophy.barrowrovers;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
 
-/**
- * Created by User on 10/04/2018.
- */
+import static android.R.attr.resource;
+
+
 
 public class TeamList extends ArrayAdapter<Team> {
 
@@ -20,7 +24,7 @@ public class TeamList extends ArrayAdapter<Team> {
     private List<Team> teamList;
 
     public TeamList(Activity context, List<Team> teamList){
-        super(context, R.layout.layout_team_list, teamList);
+        super(context,R.layout.layout_team_list, teamList);
         this.context = context;
         this.teamList = teamList;
     }
@@ -28,9 +32,9 @@ public class TeamList extends ArrayAdapter<Team> {
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater layoutInflater = context.getLayoutInflater();
+        LayoutInflater inflater = context.getLayoutInflater();
 
-        View listViewItem = layoutInflater.inflate(R.layout.layout_team_list, null, true);
+        View listViewItem = inflater.inflate(R.layout.layout_team_list, null, true);
 
         TextView teamName = (TextView) listViewItem.findViewById(R.id.teamName);
         TextView systemAdmin = (TextView) listViewItem.findViewById(R.id.systemAdmin);
@@ -45,5 +49,10 @@ public class TeamList extends ArrayAdapter<Team> {
         email.setText(team.getEmail());
 
         return  listViewItem;
+
+
     }
-}
+
+
+    }
+

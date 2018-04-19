@@ -74,100 +74,114 @@ public class CreateTeam extends AppCompatActivity {
                 startActivity(intent);
                 finish();
 
+//                if (TextUtils.isEmpty(contact)){
+                    //Error message
+//                    Toast.makeText(CreateTeam.this, "Please enter email address", Toast.LENGTH_LONG).show();
+//                }else {
+                   //update
+//                    String id = teamDetails.push().getKey();
+//                    teamDetails.child(id).setValue(name);
+//                    teamDetails.child(id).setValue(sAdmin);
+//                    teamDetails.child(id).setValue(location);
+//                    teamDetails.child(id).setValue(contact);
 
-            }
-
-
-        });
-
-        teamlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Team team = teamArray.get(position);
-
-                Intent intent = new Intent(getApplicationContext(), Team.class);
-
-                intent.putExtra("Team", team.getTeamName());
-                intent.putExtra("Team", team.getAddress());
-                intent.putExtra("Team", team.getEmail());
-                intent.putExtra("Team", team.getId());
-
-                startActivity(intent);
-            }
-        });
-
-        teamlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Team team = teamArray.get(position);
-
-                showUpdateBox(team.getId(), team.getTeamName(), team.getSystemAdmin(), team.getEmail(), team.getAddress());
-
-                return true;
-            }
-        });
+//                    Toast.makeText(CreateTeam.this, "Team Details Updated", Toast.LENGTH_LONG).show();
+//                }
 
 
-            }
+//            }
 
-    private void showUpdateBox(final String teamId, String newTeamName, String newSystemAdmin, String newEmail, String newAddress){
 
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+  //      });
 
-        LayoutInflater inflater = getLayoutInflater();
+ //       teamlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+ //           @Override
+ //           public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+ //               Team team = teamArray.get(position);
 
-        final View dialogView = inflater.inflate(R.layout.update_team, null);
+ //               Intent intent = new Intent(getApplicationContext(), ViewTeam.class);
 
-        dialogBuilder.setView(dialogView);
+ //               intent.putExtra("Name", team.getTeamName());
+ //               intent.putExtra("Location", team.getAddress());
+ //               intent.putExtra("Contact", team.getEmail());
+ //               intent.putExtra("Ref", team.getId());
 
-        final EditText tName = (EditText) dialogView.findViewById(R.id.teamName);
-        final EditText sAdmin = (EditText) dialogView.findViewById(R.id.systemAdmin);
-        final EditText contact = (EditText) dialogView.findViewById(R.id.email);
-        final EditText location = (EditText) dialogView.findViewById(R.id.address);
-        final Button update = (Button) dialogView.findViewById(R.id.update);
+ //               startActivity(intent);
+ //           }
+ //       });
 
-        dialogBuilder.setTitle("Update Team "+teamName);
+ //       teamlist.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+ //           @Override
+ //               public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+ //               Team team = teamArray.get(position);
 
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.show();
+//                showUpdateBox(team.getId(), team.getTeamName(), team.getSystemAdmin(), team.getEmail(), team.getAddress());
 
-        update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = tName.getText().toString();
-                String systemAd = sAdmin.getText().toString();
-                String email = contact.getText().toString();
-                String address = location.getText().toString();
-
-                if (TextUtils.isEmpty(email)){
-                    contact.setError("Email address required");
-                    return;
-                }
-
-               updateTeam(teamId, name, systemAd, email, address);
-
-                alertDialog.dismiss();
-
+//                return true;
             }
         });
 
 
+            }
 
-    }
+  //  private void showUpdateBox(final String teamId, String teamName, String systemAdmin, String email, String address){
+
+  //      AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+  //      LayoutInflater inflater = getLayoutInflater();
+
+  //      final View dialogView = inflater.inflate(R.layout.update_team, null);
+
+  //      dialogBuilder.setView(dialogView);
+
+//    final EditText tName = (EditText) dialogView.findViewById(R.id.teamName);
+//        final EditText sAdmin = (EditText) dialogView.findViewById(R.id.systemAdmin);
+//        final EditText contact = (EditText) dialogView.findViewById(R.id.email);
+//        final EditText location = (EditText) dialogView.findViewById(R.id.address);
+//        final Button update = (Button) dialogView.findViewById(R.id.update);
+
+  //      dialogBuilder.setTitle("Update Team "+teamName);
+
+  //      final AlertDialog alertDialog = dialogBuilder.create();
+  //      alertDialog.show();
+
+ //       update.setOnClickListener(new View.OnClickListener() {
+ //           @Override
+ //           public void onClick(View v) {
+ //               String name = tName.getText().toString();
+ //               String systemAd = sAdmin.getText().toString();
+ //               String email = contact.getText().toString();
+ //               String address = location.getText().toString();
+
+ //               if (TextUtils.isEmpty(email)){
+ //                   contact.setError("Email address required");
+ //                   return;
+ //               }
+
+ //              updateTeam(teamId, name, systemAd, email, address);
+
+ //               alertDialog.dismiss();
+
+ //           }
+ //       });
 
 
-        private void updateTeam(String teamId, String newName, String newSystemAdmin, String newEmail, String newAddress){
 
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Teams").child(teamId);
-
-            Team team = new Team(teamId, newName, newAddress, newEmail, newSystemAdmin);
-
-            databaseReference.setValue(team);
-
-            Toast.makeText(this, "Team Updated Successfully", Toast.LENGTH_LONG).show();
+//    }
 
 
-        }
+ //       private void updateTeam(String teamId, String newName, String newSystemAdmin, String newEmail, String newAddress){
+
+//            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Teams").child(teamId);
+
+  //          Team team = new Team(teamId, newName, newAddress, newEmail, newSystemAdmin);
+
+  //          databaseReference.setValue(team);
+
+  //          Toast.makeText(this, "Team Updated Successfully", Toast.LENGTH_LONG).show();
+
+
+  //      }
 
 
 
@@ -178,8 +192,10 @@ public class CreateTeam extends AppCompatActivity {
         String location = address.getText().toString();
         String contact = email.getText().toString();
 
-        //Check to see if details have been filled in
-
+        //Check to see if email has been filled in
+        if (TextUtils.isEmpty(contact)){
+            Toast.makeText(CreateTeam.this, "Enter email address Please", Toast.LENGTH_LONG).show();
+        }
 
         //Creates a unique id to the database called id
         String id = teamDetails.push().getKey();

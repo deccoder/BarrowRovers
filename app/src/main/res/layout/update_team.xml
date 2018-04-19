@@ -40,4 +40,10 @@
         android:layout_width="133dp"
         android:layout_height="wrap_content"
         android:id="@+id/update" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="137dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete" />
 </LinearLayout>

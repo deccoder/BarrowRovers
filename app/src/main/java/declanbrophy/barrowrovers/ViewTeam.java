@@ -18,12 +18,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewTeam extends AppCompatActivity {
-    //TextView teamName, systemAdmin, address, email;
+//    TextView teamName, systemAdmin, address, email;
     Team team;
-    //ListView teamBox;
-  //  DatabaseReference teamDetails;
+ //   ListView teamBox;
+ //   DatabaseReference teamDetails;
     //Creates a list of teams
-   // List teamList;
+ //  List teamList;
 
 //   @Override
 //    protected void onStart() {
@@ -60,34 +60,34 @@ public class ViewTeam extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_team);
 
-    //    teamBox = (ListView) findViewById(R.id.textBox);
-    //    teamList = new ArrayList<>();
+//    teamBox = (ListView) findViewById(R.id.textBox);
+//    teamList = new ArrayList<>();
 
         team = (Team)getIntent().getSerializableExtra("team");
 
         Toast.makeText(ViewTeam.this, team+"\n+team", Toast.LENGTH_LONG).show();
 
-      //  teamName = (TextView) listViewItem.findViewById(R.id.teamName);
-        //systemAdmin = (TextView) listViewItem.findViewById(R.id.systemAdmin);
-        //address = (TextView) listViewItem.findViewById(R.id.address);
-        //email = (TextView) listViewItem.findViewById(R.id.email);
+//        teamName = (TextView) findViewById(R.id.teamName);
+//        systemAdmin = (TextView) findViewById(R.id.systemAdmin);
+//        address = (TextView) findViewById(R.id.address);
+//        email = (TextView) findViewById(R.id.email);
 
 
 
-    //    teamBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      //      @Override
-        //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//      teamBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-              //  Team team = teamBox.get(view);
+//                Team team = teamBox.get(view);
 
-          //      Intent intent = new Intent(ViewTeam.this, TeamList.class);
+//                Intent intent = new Intent(ViewTeam.this, TeamList.class);
 
-                //intent.putExtra();
+//                intent.putExtra();
 
-            //    startActivity(intent);
-            }
-        //});
+//             startActivity(intent);
+//            }
+//        });
 
 
     }
-//}
+}
