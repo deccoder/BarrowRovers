@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreatePlayers extends AppCompatActivity {
-
+    ListView playersView;
     Button add;
     EditText name,email,squadNumber,pinNumber;
     DatabaseReference playerDetails;
     Players playerOne;
-
+    List<Players> playersList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +35,15 @@ public class CreatePlayers extends AppCompatActivity {
         playerOne = new Players();
         playerDetails = FirebaseDatabase.getInstance().getReference("Players");
 
+        playersView = (ListView) findViewById(R.id.playersView);
         add = (Button) findViewById(R.id.add);
         name = (EditText) findViewById(R.id.name);
         email = (EditText) findViewById(R.id.email);
         squadNumber = (EditText) findViewById(R.id.squadNumber);
         pinNumber = (EditText) findViewById(R.id.pinNumber);
 
+
+        playersList = new ArrayList<>();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +71,34 @@ public class CreatePlayers extends AppCompatActivity {
 
 
     }
-private void addPlayer(){
+
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+
+//        playerDetails.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                playersList.clear();
+//                for (DataSnapshot playerSnapshot : dataSnapshot.getChildren()){
+//                    Players players =playerSnapshot.getValue(Players.class);
+
+//                    playersList.add(players);
+
+//                }
+
+//                PlayersList adapter = new PlayersList(CreatePlayers.this, playersList);
+//                playersView.setAdapter(adapter);
+//            }
+
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+
+//            }
+//        });
+//    }
+
+    private void addPlayer(){
     String Name = name.getText().toString();
     String Address = email.getText().toString();
     String NumberOne = squadNumber.getText().toString();
