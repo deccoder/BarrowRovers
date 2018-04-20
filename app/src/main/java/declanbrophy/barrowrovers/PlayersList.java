@@ -32,12 +32,14 @@ public class PlayersList extends ArrayAdapter<Players> {
         TextView playersName = (TextView) listViewItem.findViewById(R.id.playersName);
         TextView playersEmail = (TextView) listViewItem.findViewById(R.id.playersEmail);
         TextView playersNumber = (TextView) listViewItem.findViewById(R.id.playersNumber);
+        TextView playersPinNumber = (TextView) listViewItem.findViewById(R.id.playersPinNumber);
 
         Players players = playersList.get(position);
 
-//        playersName.setText(players.getpName());
-//        playersEmail.setText(players.getEmail());
-//        playersNumber.setText(players.getSNumber());
+        playersName.setText(players.getpName());
+        playersEmail.setText(players.getEmail());
+        playersNumber.setText(players.getSNumber());
+        playersPinNumber.setText(players.getPNumber());
 
         return listViewItem;
 

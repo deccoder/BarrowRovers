@@ -72,31 +72,31 @@ public class CreatePlayers extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
+   @Override
+    protected void onStart() {
+        super.onStart();
 
-//        playerDetails.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                playersList.clear();
-//                for (DataSnapshot playerSnapshot : dataSnapshot.getChildren()){
-//                    Players players =playerSnapshot.getValue(Players.class);
+        playerDetails.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                playersList.clear();
+                for (DataSnapshot playerSnapshot : dataSnapshot.getChildren()){
+                    Players players =playerSnapshot.getValue(Players.class);
 
-//                    playersList.add(players);
+                    playersList.add(players);
 
-//                }
+                }
 
-//                PlayersList adapter = new PlayersList(CreatePlayers.this, playersList);
-//                playersView.setAdapter(adapter);
-//            }
+                PlayersList adapter = new PlayersList(CreatePlayers.this, playersList);
+                playersView.setAdapter(adapter);
+            }
 
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-//            }
-//        });
-//    }
+            }
+        });
+    }
 
     private void addPlayer(){
     String Name = name.getText().toString();
